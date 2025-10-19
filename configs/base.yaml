@@ -1,0 +1,39 @@
+dataset_path: "data/raw/creditcard.csv"
+target_col: "Class"
+time_col: "Time"
+id_cols: [] # e.g., ["card_id"]
+
+train_valid_test_ratios: [0.7, 0.15, 0.15]
+random_state: 42
+
+# Feature Engineering
+scale_amount_log: true
+use_standard_scaler: true
+
+# Model Training
+modeling:
+  algorithm: "lightgbm"
+  class_weight: "balanced"
+  optuna_trials: 50
+  early_stopping_rounds: 100
+  n_jobs: -1
+
+# Imbalance Handling (optional)
+imbalance:
+  use_smote: false
+  smote_strategy: 0.1
+
+# Evaluation
+evaluation:
+  top_k_daily: 500
+  cost_fp: 100.0
+  cost_fn: 10000.0
+  target_fpr: 0.005 # 0.5%
+
+# Outputs
+output_dir: "models/"
+
+# Experiment Tracking
+mlflow:
+  tracking_uri: "mlruns"
+  experiment_name: "fraud_baseline"
